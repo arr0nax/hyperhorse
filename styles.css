@@ -36,7 +36,7 @@
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   -o-transform-style: preserve-3d;
-  background-image: url('background gifs/Hex Tunnel.gif');
+  /*background-image: url('background gifs/Hex Tunnel.gif');*/
   background-size: 100% 100%;
 
 }
@@ -58,16 +58,18 @@
 
 
 .cloudBase {
-  height: 80px;
+  height: 128px;
   left: 256px;
   margin-left: -10px;
   margin-top: -10px;
   position: absolute;
   top: 256px;
-  width: 80px;
+  width: 128px;
   background-color: rgba(0, 255, 255, 0.5);
-  background-image: url('background gifs/hyper bricks.gif');
+  background-image: url('background gifs/blknwht.gif');
   background-size: 100% 100%;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
 }
 
 #world .cube1 { transform: rotateY(   0deg); }
@@ -86,8 +88,9 @@
   position: absolute;
   top: 50%;
   /*background-color: rgba(255, 255, 0, 0.25);*/
-  background-image: url('images/horse.png');
+  /*background-image: url('images/horse.png');*/
   background-size: 256px 256px;
+  -webkit-transition: scale .05s;
 }
 
 #meter {
@@ -100,13 +103,35 @@
   margin-top: 80vh;
 }
 
-#meter {
+/*#low {
+  position: absolute;
+  top: 70vh;
   width: 0%;
   height: 15px;
   margin: 2px 0;
   background: green;
   -webkit-transition: width .05s;
 }
+
+#mid {
+  position: absolute;
+  top: 80vh;
+  width: 0%;
+  height: 15px;
+  margin: 2px 0;
+  background: green;
+  -webkit-transition: width .05s;
+}
+
+#high {
+  position: absolute;
+  top: 90vh;
+  width: 0%;
+  height: 15px;
+  margin: 2px 0;
+  background: green;
+  -webkit-transition: width .05s;
+}*/
 
 #pause {
   position: absolute;

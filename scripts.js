@@ -1,9 +1,13 @@
 document.addEventListener("DOMContentLoaded", function(event) {
   var objects= [],
+  cube_array = [],
   audio_copy,
+  low_copy,
+  mid_copy,
+  high_copy,
   rms_copy,
   layers = [];
-  var images = ['313ePOL.png','apple-logo-rainbow.png','bern.png','blank.png','blank2.png','blank3.png','geo.png','guy.png','guy2.png','horse.png','mlp.png','pink_leaf.gif','poke.png','purp.jpg','simba_khii.png','snoop.jpg','spiral.png','sword.png','tri.png','wire.GIF'];
+  var images = ['313ePOL.png','apple-logo-rainbow.png','bern.png','blank.png','blank2.png','blank3.png','geo.png','guy.png','guy2.png','horse.png','mlp.png','pink_leaf.gif','poke.png','purp.jpg','simba_khii.png','snoop.jpg','spiral.png','sword.png','tri.png','wire.GIF','bath 1.png','bath 2.png','couple.png','cross.png','eq1.gif','eq2.png','eq3.png','fire ring1.png','flower of life.png','galaxy s8.png','Galaxy1.png','gary.png','getty.png','hex.png','sink.png','snail1.png','snail2.gif','Snail3.png','spiral1.png','spiral2.png','spiral3.png','spiral4.png','spiral5.png','spiral7.png','thingy.png','toilet.png'];
 
   var button = document.getElementById('pause')
   button.onclick = function() {
@@ -27,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var world = document.getElementById('world'),
   viewport = document.getElementById('viewport'),
   crosshair = document.getElementById('crosshair'),
+  low_meter = document.getElementById('low'),
+  mid_meter = document.getElementById('mid'),
+  high_meter = document.getElementById('high'),
   worldXAngle = 0,
   worldYAngle = 0,
   crosshairX = window.innerWidth/2,
@@ -60,9 +67,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     randox= random_x();
     randoy= random_y();
     randoz= random_z();
-    for(var i =0; i<6; i++) {
+    for(var i =0; i<14; i++) {
       var div = document.createElement('div');
       div.className = 'cloudBase cube'+i;
+      div.data = {
+        z: randoz,
+        y: randoy,
+        x: randox
+      }
       if (i === 0) {
         var t = 'translateX( ' + randox+ 'px ) \
         translateY( ' + randoy+ 'px ) \
@@ -104,10 +116,75 @@ document.addEventListener("DOMContentLoaded", function(event) {
         translateZ( ' + randoz+ 'px)';
         div.style.transform = t;
         world.appendChild(div);
+      } else if (i === 6) {
+        var t = 'translateX( ' + randox+ 'px ) \
+        translateY( ' + randoy+ 'px ) \
+        rotateY(45deg) \
+        rotateX(45deg) \
+        translateZ( ' + randoz+ 'px)';
+        div.style.transform = t;
+        world.appendChild(div);
+      } else if (i === 7) {
+        var t = 'translateX( ' + randox+ 'px ) \
+        translateY( ' + randoy+ 'px ) \
+        rotateY(-45deg) \
+        rotateX(45deg) \
+        translateZ( ' + randoz+ 'px)';
+        div.style.transform = t;
+        world.appendChild(div);
+      } else if (i === 8) {
+        var t = 'translateX( ' + randox+ 'px ) \
+        translateY( ' + randoy+ 'px ) \
+        rotateY(45deg) \
+        rotateX(-45deg) \
+        translateZ( ' + randoz+ 'px)';
+        div.style.transform = t;
+        world.appendChild(div);
+      } else if (i === 9) {
+        var t = 'translateX( ' + randox+ 'px ) \
+        translateY( ' + randoy+ 'px ) \
+        rotateY(-45deg) \
+        rotateX(-45deg) \
+        translateZ( ' + randoz+ 'px)';
+        div.style.transform = t;
+        world.appendChild(div);
+      } else if (i === 10) {
+        var t = 'translateX( ' + randox+ 'px ) \
+        translateY( ' + randoy+ 'px ) \
+        rotateY(45deg) \
+        rotateX(45deg) \
+        translateZ( ' + randoz+ 'px)';
+        div.style.transform = t;
+        world.appendChild(div);
+      } else if (i === 11) {
+        var t = 'translateX( ' + randox+ 'px ) \
+        translateY( ' + randoy+ 'px ) \
+        rotateY(-45deg) \
+        rotateX(45deg) \
+        translateZ( ' + randoz+ 'px)';
+        div.style.transform = t;
+        world.appendChild(div);
+      } else if (i === 12) {
+        var t = 'translateX( ' + randox+ 'px ) \
+        translateY( ' + randoy+ 'px ) \
+        rotateY(45deg) \
+        rotateX(-45deg) \
+        translateZ( ' + randoz+ 'px)';
+        div.style.transform = t;
+        world.appendChild(div);
+      } else if (i === 13) {
+        var t = 'translateX( ' + randox+ 'px ) \
+        translateY( ' + randoy+ 'px ) \
+        rotateY(-45deg) \
+        rotateX(-45deg) \
+        translateZ( ' + randoz+ 'px)';
+        div.style.transform = t;
+        world.appendChild(div);
       }
+      cube_array.push(div);
     }
 
-    for( var j = 0; j < 5 + Math.round( Math.random() * 10 ); j++ ) {
+    for( var j = 0; j < 1 + Math.round( Math.random() * 10 ); j++ ) {
     var cloud = document.createElement( 'div' );
     cloud.className = 'cloudLayer';
 
@@ -131,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       scale( ' + cloud.data.s + ' )';
     cloud.style.transform = t;
 
-    div.appendChild( cloud );
+    world.appendChild( cloud );
     layers.push( cloud );
 }
 
@@ -227,11 +304,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 //   event.target.parentNode.removeChild(event.target);
 // }
 
-function update (){
+length = 0;
+function update(){
   worldXAngle += -rms_copy*2;
   worldYAngle += 1+rms_copy*5;
   d = rms_copy*10;
-  for( var j = 0; j < layers.length; j++ ) {
+  for( var j = 0; j < layers.length; j++) {
     var layer = layers[ j ];
     layer.data.a += layer.data.s;
     var t = 'translateX( ' + layer.data.x + 'px ) translateY( ' + layer.data.y + 'px ) translateZ( ' + layer.data.z + 'px ) rotateX('+layer.data.rx+'deg) rotateY('+layer.data.ry+'deg) rotateZ( ' + layer.data.a + 'deg ) scale( ' + layer.data.s + ')';
@@ -239,14 +317,105 @@ function update (){
     layer.style.MozTransform = t;
     layer.style.oTransform = t;
   }
+  length += .5;
 
+  for(var i = 0; i<cube_array.length; i++) {
+    var ztranslation = cube_array[i].data.z + (high_copy*40);
+    if(i%14 === 0) {
 
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 1) {
 
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateX(180deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 2) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateX(90deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 3) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateX(-90deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 4) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateY(90deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 5) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateY(-90deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 6) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateY(45deg) \
+      rotateX(45deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 7) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateY(-45deg) \
+      rotateX(45deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 8) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateY(45deg) \
+      rotateX(-45deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 9) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateY(-45deg) \
+      rotateX(-45deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 10) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateY(45deg) \
+      rotateX(45deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 11) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateY(-45deg) \
+      rotateX(45deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 12) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateY(45deg) \
+      rotateX(-45deg) \
+      translateZ( ' +ztranslation+ 'px)';
+    } else if(i%14 === 13) {
+
+      cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
+      translateY( ' + cube_array[i].data.y+ 'px ) \
+      rotateY(-45deg) \
+      rotateX(-45deg) \
+      translateZ( ' +ztranslation+ 'px)';}
+  }
   requestAnimationFrame( update );
 
 }
-
-
 
 update();
 displaySound = function(url = 'audio/German Clap.mp3'){
@@ -259,21 +428,54 @@ displaySound = function(url = 'audio/German Clap.mp3'){
     , audio = new Audio(url)
     // 2048 sample buffer, 1 channel in, 1 channel out
     , processor = ctx.createScriptProcessor(2048, 1, 1)
-    , source;
-
+    , analyser = ctx.createAnalyser()
+    , source
+    var bufferLength = analyser.frequencyBinCount;
+    frequency_data = new Float32Array(bufferLength);
     audio_copy = audio;
 
   audio.addEventListener('canplaythrough', function(){
-    source = ctx.createMediaElementSource(audio)
+    var source = ctx.createMediaElementSource(audio)
     source.connect(processor)
+    source.connect(analyser)
     source.connect(ctx.destination)
     processor.connect(ctx.destination)
     audio.play()
   }, false);
 
+
   // loop through PCM data and calculate average
   // volume for a given 2048 sample buffer
+  var length = 0;
   processor.onaudioprocess = function(evt){
+
+    analyser.getFloatFrequencyData(frequency_data);
+    var low = 0;
+    for(var i=0; i<100; i++) {
+      low += frequency_data[i];
+    }
+    low = low/100;
+    var mid = 0;
+    for(var i=100; i<300; i++) {
+      mid += frequency_data[i];
+    }
+    mid = mid/200;
+    var high = 0;
+    for(var i=300; i<600; i++) {
+      high += frequency_data[i];
+    }
+    high = high/300 ;
+
+    low_meter.style.width = 100+low+'%';
+    mid_meter.style.width = 100+mid+'%';
+    high_meter.style.width = 100+high+'%';
+
+    low_copy = low+100;
+    mid_copy = mid+100;
+    high_copy = high+100;
+
+
+
     var input = evt.inputBuffer.getChannelData(0)
       , len = input.length
       , total = i = 0
@@ -327,5 +529,4 @@ window.addEventListener('drop', onDrop, false);
         displaySound(url);
         console.log('hello');
     }
-
 });

@@ -5,3 +5,5 @@
 * multiple songs/playlist
 * add message to say you can drop another file in
 * squares of multiple transparent collors
+* visualizer shadows
+* intermediate display responsive to medium rms
