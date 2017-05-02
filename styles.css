@@ -6,7 +6,6 @@
   position: absolute;
   right: 0;
   top: 0;
-  background-image: url('it.gif');
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -84,4 +83,12 @@
   -webkit-transition: width .05s;
   position: absolute;
   margin-top: 80vh;
+}
+
+#meter {
+  width: 0%;
+  height: 15px;
+  margin: 2px 0;
+  background: green;
+  -webkit-transition: width .05s;
 }

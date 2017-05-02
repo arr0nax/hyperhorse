@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   worldYAngle = 0,
   crosshairX = window.innerWidth/2,
   crosshairY = window.innerHeight/2,
-  d = -100;
+  d = -600;
   p = 400;
 
   viewport.style.webkitPerspective = p;
@@ -109,7 +109,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     div.appendChild( cloud );
     layers.push( cloud );
-    console.log(cloud.data.a);
 }
 
 
@@ -123,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     return 256 - Math.random()*512;
   }
   function random_z() {
-    return 1024 - Math.random()*2048;
+    return 256 - Math.random()*512;
   }
   function random_a() {
     return 180 - Math.random()*360;
@@ -187,7 +186,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   d = d - ( event.detail ? event.detail * -5 : event.wheelDelta / 8 );
   updateView();
   event.preventDefault();
-
 }
 
 // function removeDiv (event) {
@@ -211,33 +209,41 @@ function update (){
 }
 
 update();
+displaySound = function(){
 
-//////////////AUDIO
-});
-var app = app || {};
-var source;
-var buffer;
-var analyser;
+  var ctx = new AudioContext()
+    , url = 'shipwreck.mp3'
+    , audio = new Audio(url)
+    // 2048 sample buffer, 1 channel in, 1 channel out
+    , processor = ctx.createScriptProcessor(2048, 1, 1)
+    , meter = document.getElementById('meter')
+    , source
 
-window.onload = function () {
+  audio.addEventListener('canplaythrough', function(){
+    source = ctx.createMediaElementSource(audio)
+    source.connect(processor)
+    source.connect(ctx.destination)
+    processor.connect(ctx.destination)
+    audio.play()
+  }, false);
 
-  function initiateAudio() {
-    if(app.audio){
-      app.audio.remove();
-      window.cancelAnimationFrame(app.animationFrame);
-    }
-    app.audio = document.createElement('audio'); // creates an html audio element
-    app.audio.src = 'shipwreck.mp3'; // sets the audio source to the dropped file
-    app.audio.autoplay = true;
-    app.audio.play();
-    app.play = true;
-    document.body.appendChild(app.audio);
-    app.ctx = new (window.AudioContext || window.webkitAudioContext)(); // creates audioNode
-    source = app.ctx.createMediaElementSource(app.audio); // creates audio source
-    analyser = app.ctx.createAnalyser(); // creates analyserNode
-    source.connect(app.ctx.destination); // connects the audioNode to the audioDestinationNode (computer speakers)
-    source.connect(analyser); // connects the analyser node to the audioNode and the audioDestinationNode
-    app.animate();
+  // loop through PCM data and calculate average
+  // volume for a given 2048 sample buffer
+  processor.onaudioprocess = function(evt){
+    var input = evt.inputBuffer.getChannelData(0)
+      , len = input.length
+      , total = i = 0
+      , rms
+    while ( i < len ) total += Math.abs( input[i++] )
+    rms = Math.sqrt( total / len )
+    d = ( rms * 500 ) - 500;
   }
-  initiateAudio();
-};
+
+}
+displaySound();
+
+setInterval(function() {
+  updateView();
+}, 5);
+
+});
