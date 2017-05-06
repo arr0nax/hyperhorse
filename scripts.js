@@ -17,6 +17,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
       audio_copy.pause();
     }
   }
+  var songbutton1 = document.getElementById('Song1')
+  songbutton1.onclick = function() {
+    displaySound('../audio/house No. 2.mp3');
+  }
+  var songbutton2 = document.getElementById('Song2')
+  songbutton2.onclick = function() {
+    displaySound('../audio/house no. 6.mp3');
+
+  }
+  var songbutton3 = document.getElementById('Song3')
+  songbutton3.onclick = function() {
+    displaySound('../audio/house no. 3.mp3');
+  }
   window.addEventListener( 'keydown', function(e) {
     if(e.keyCode === 32) {
       if(audio_copy.paused) {
@@ -418,11 +431,10 @@ function update(){
 }
 
 update();
-displaySound = function(url = 'audio/German Clap.mp3'){
+displaySound = function(url = 'audio/House No. 2.mp3'){
   if(audio_copy) {
-     audio_copy.pause();
+    audio_copy.pause();
   }
-
   // var url = 'German Clap.mp3'
     var ctx = new AudioContext()
     , audio = new Audio(url)
@@ -486,7 +498,8 @@ displaySound = function(url = 'audio/German Clap.mp3'){
       layers[i].data.s = layers[i].animation_data.s + rms*4;
     }
     rms_copy = rms;
-    if (rms > .7) {
+    console.log(rms);
+    if (rms > .5) {
       for(var i = 0; i<layers.length; i++) {
         layers[i].style.backgroundImage = "url('images/"+images[random_img()]+"')";
       }

@@ -139,3 +139,31 @@
   width: 80px;
   border: 3px solid black;
 }
+
+#Song1 {
+  position: absolute;
+  height: 50px;
+  width: 80px;
+  border: 3px solid black;
+  top: 90vh;
+
+}
+
+#Song2 {
+  position: absolute;
+  height: 50px;
+  width: 80px;
+  border: 3px solid black;
+  top: 90vh;
+  left: 100px;
+
+}
+
+#Song3 {
+  position: absolute;
+  height: 50px;
+  width: 80px;
+  border: 3px solid black;
+  top: 90vh;
+  left: 200px;
+}
