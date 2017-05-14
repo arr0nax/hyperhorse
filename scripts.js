@@ -84,9 +84,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var div = document.createElement('div');
       div.className = 'cloudBase cube'+i;
       div.data = {
-        z: randoz,
-        y: randoy,
-        x: randox
+        z: (randoz),
+        y: (randoy),
+        x: (randox)
       }
       if (i === 0) {
         var t = 'translateX( ' + randox+ 'px ) \
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       } else if (i === 10) {
         var t = 'translateX( ' + randox+ 'px ) \
         translateY( ' + randoy+ 'px ) \
-        rotateY(45deg) \
+        rotateY(135deg) \
         rotateX(45deg) \
         translateZ( ' + randoz+ 'px)';
         div.style.transform = t;
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       } else if (i === 11) {
         var t = 'translateX( ' + randox+ 'px ) \
         translateY( ' + randoy+ 'px ) \
-        rotateY(-45deg) \
+        rotateY(-135deg) \
         rotateX(45deg) \
         translateZ( ' + randoz+ 'px)';
         div.style.transform = t;
@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       } else if (i === 12) {
         var t = 'translateX( ' + randox+ 'px ) \
         translateY( ' + randoy+ 'px ) \
-        rotateY(45deg) \
+        rotateY(135deg) \
         rotateX(-45deg) \
         translateZ( ' + randoz+ 'px)';
         div.style.transform = t;
@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       } else if (i === 13) {
         var t = 'translateX( ' + randox+ 'px ) \
         translateY( ' + randoy+ 'px ) \
-        rotateY(-45deg) \
+        rotateY(-135deg) \
         rotateX(-45deg) \
         translateZ( ' + randoz+ 'px)';
         div.style.transform = t;
@@ -321,15 +321,15 @@ length = 0;
 function update(){
   worldXAngle += -rms_copy*2;
   worldYAngle += 1+rms_copy*5;
-  d = rms_copy*10;
-  for( var j = 0; j < layers.length; j++) {
-    var layer = layers[ j ];
-    layer.data.a += layer.data.s;
-    var t = 'translateX( ' + layer.data.x + 'px ) translateY( ' + layer.data.y + 'px ) translateZ( ' + layer.data.z + 'px ) rotateX('+layer.data.rx+'deg) rotateY('+layer.data.ry+'deg) rotateZ( ' + layer.data.a + 'deg ) scale( ' + layer.data.s + ')';
-    layer.style.webkitTransform = t;
-    layer.style.MozTransform = t;
-    layer.style.oTransform = t;
-  }
+  // d = rms_copy*10;
+  // for( var j = 0; j < layers.length; j++) {
+  //   var layer = layers[ j ];
+  //   layer.data.a += layer.data.s;
+  //   var t = 'translateX( ' + layer.data.x + 'px ) translateY( ' + layer.data.y + 'px ) translateZ( ' + layer.data.z + 'px ) rotateX('+layer.data.rx+'deg) rotateY('+layer.data.ry+'deg) rotateZ( ' + layer.data.a + 'deg ) scale( ' + layer.data.s + ')';
+  //   layer.style.webkitTransform = t;
+  //   layer.style.MozTransform = t;
+  //   layer.style.oTransform = t;
+  // }
   length += .5;
 
   for(var i = 0; i<cube_array.length; i++) {
@@ -401,28 +401,28 @@ function update(){
 
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
-      rotateY(45deg) \
+      rotateY(135deg) \
       rotateX(45deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 11) {
 
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
-      rotateY(-45deg) \
+      rotateY(-135deg) \
       rotateX(45deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 12) {
 
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
-      rotateY(45deg) \
+      rotateY(135deg) \
       rotateX(-45deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 13) {
 
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
-      rotateY(-45deg) \
+      rotateY(-135deg) \
       rotateX(-45deg) \
       translateZ( ' +ztranslation+ 'px)';}
   }
@@ -431,7 +431,7 @@ function update(){
 }
 
 update();
-displaySound = function(url = 'audio/House No. 2.mp3'){
+displaySound = function(url = 'audio/house no. 6.mp3'){
   if(audio_copy) {
     audio_copy.pause();
   }
@@ -498,17 +498,16 @@ displaySound = function(url = 'audio/House No. 2.mp3'){
       layers[i].data.s = layers[i].animation_data.s + rms*4;
     }
     rms_copy = rms;
-    console.log(rms);
-    if (rms > .5) {
-      for(var i = 0; i<layers.length; i++) {
-        layers[i].style.backgroundImage = "url('images/"+images[random_img()]+"')";
-      }
-    }
-    if (rms < .2) {
-      for(var i = 0; i<layers.length; i++) {
-        layers[i].style.backgroundImage = "url('images/horse.png')";
-      }
-    }
+    // if (rms > .5) {
+    //   for(var i = 0; i<layers.length; i++) {
+    //     layers[i].style.backgroundImage = "url('images/"+images[random_img()]+"')";
+    //   }
+    // }
+    // if (rms < .2) {
+    //   for(var i = 0; i<layers.length; i++) {
+    //     layers[i].style.backgroundImage = "url('images/horse.png')";
+    //   }
+    // }
 
   }
 

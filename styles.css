@@ -6,7 +6,7 @@
   position: absolute;
   right: 0;
   top: 0;
-  background-image: url('background gifs/it.gif');
+  /*background-image: url('background gifs/it.gif');*/
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -66,10 +66,11 @@
   top: 256px;
   width: 128px;
   background-color: rgba(0, 255, 255, 0.5);
-  background-image: url('background gifs/blknwht.gif');
+  /*background-image: url('background gifs/blknwht.gif');*/
   background-size: 100% 100%;
 	-webkit-border-radius: 50px;
 	border-radius: 50px;
+  -webkit-animation: rainbow 5s infinite;
 }
 
 #world .cube1 { transform: rotateY(   0deg); }
@@ -166,4 +167,13 @@
   border: 3px solid black;
   top: 90vh;
   left: 200px;
+}
+
+@-webkit-keyframes rainbow{
+  0%{background-color: orange;}
+	20%{background-color: red;}
+	40%{background-color: yellow;}
+	60%{background-color: green;}
+	80%{background-color: blue;}
+	100%{background-color: orange;}
 }
