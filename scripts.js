@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   mid_copy,
   high_copy,
   rms_copy,
+  background_color,
   layers = [];
   var images = ['313ePOL.png','apple-logo-rainbow.png','bern.png','blank.png','blank2.png','blank3.png','geo.png','guy.png','guy2.png','horse.png','mlp.png','pink_leaf.gif','poke.png','purp.jpg','simba_khii.png','snoop.jpg','spiral.png','sword.png','tri.png','wire.GIF','bath 1.png','bath 2.png','couple.png','cross.png','eq1.gif','eq2.png','eq3.png','fire ring1.png','flower of life.png','galaxy s8.png','Galaxy1.png','gary.png','getty.png','hex.png','sink.png','snail1.png','snail2.gif','Snail3.png','spiral1.png','spiral2.png','spiral3.png','spiral4.png','spiral5.png','spiral7.png','thingy.png','toilet.png'];
 
@@ -86,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       div.data = {
         z: (randoz),
         y: (randoy),
-        x: (randox)
+        x: (randox),
       }
       if (i === 0) {
         var t = 'translateX( ' + randox+ 'px ) \
@@ -208,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       a: random_a(),
       s: random_s(),
       rx: random_rx(),
-      ry: random_ry()
+      ry: random_ry(),
     };
 
     cloud.animation_data = Object.assign({}, cloud.data);
@@ -302,6 +303,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // crosshair.style.left = crosshairX+'px';
 
 
+
   }
 
   function onContainerMouseWheel( event ) {
@@ -334,97 +336,103 @@ function update(){
 
   for(var i = 0; i<cube_array.length; i++) {
     var ztranslation = cube_array[i].data.z + (high_copy*40);
-    if(i%14 === 0) {
+    var bgr = Math.floor(Math.abs(low_copy*10));
+    var bgg = Math.floor(Math.abs(mid_copy*10));
+    var bgb = Math.floor(Math.abs(high_copy*10));
 
+    if(i%14 === 0) {
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',.5)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 1) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateX(180deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 2) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateX(90deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 3) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateX(-90deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 4) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateY(90deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 5) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateY(-90deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 6) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateY(45deg) \
       rotateX(45deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 7) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateY(-45deg) \
       rotateX(45deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 8) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateY(45deg) \
       rotateX(-45deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 9) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateY(-45deg) \
       rotateX(-45deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 10) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateY(135deg) \
       rotateX(45deg) \
       translateZ( ' +ztranslation+ 'px)';
-    } else if(i%14 === 11) {
 
+    } else if(i%14 === 11) {
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateY(-135deg) \
       rotateX(45deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 12) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateY(135deg) \
       rotateX(-45deg) \
       translateZ( ' +ztranslation+ 'px)';
     } else if(i%14 === 13) {
-
+      cube_array[i].style.backgroundColor = 'rgba('+bgr+','+bgg+','+bgb+',1)';
       cube_array[i].style.webkitTransform = 'translateX( ' + cube_array[i].data.x+ 'px ) \
       translateY( ' + cube_array[i].data.y+ 'px ) \
       rotateY(-135deg) \
       rotateX(-45deg) \
-      translateZ( ' +ztranslation+ 'px)';}
+      translateZ( ' +ztranslation+ 'px)';
+    }
   }
   requestAnimationFrame( update );
 

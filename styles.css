@@ -65,12 +65,12 @@
   position: absolute;
   top: 256px;
   width: 128px;
-  background-color: rgba(0, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   /*background-image: url('background gifs/blknwht.gif');*/
   background-size: 100% 100%;
 	-webkit-border-radius: 50px;
 	border-radius: 50px;
-  -webkit-animation: rainbow 5s infinite;
+  /*-webkit-animation: rainbow 5s infinite;*/
 }
 
 #world .cube1 { transform: rotateY(   0deg); }
