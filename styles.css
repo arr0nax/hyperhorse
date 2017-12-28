@@ -9,6 +9,7 @@
   /*background-image: url('background gifs/it.gif');*/
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  background-color: black;
 }
 
 #notification {
@@ -88,7 +89,7 @@
   margin-top: -128px;
   position: absolute;
   top: 50%;
-  /*background-color: rgba(255, 255, 0, 0.25);*/
+  background-color: rgba(255, 255, 0, 0.25);
   /*background-image: url('images/horse.png');*/
   background-size: 256px 256px;
   -webkit-transition: scale .05s;

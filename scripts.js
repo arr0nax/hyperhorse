@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   rms_copy,
   background_color,
   layers = [];
-  var images = ['313ePOL.png','apple-logo-rainbow.png','bern.png','blank.png','blank2.png','blank3.png','geo.png','guy.png','guy2.png','horse.png','mlp.png','pink_leaf.gif','poke.png','purp.jpg','simba_khii.png','snoop.jpg','spiral.png','sword.png','tri.png','wire.GIF','bath 1.png','bath 2.png','couple.png','cross.png','eq1.gif','eq2.png','eq3.png','fire ring1.png','flower of life.png','galaxy s8.png','Galaxy1.png','gary.png','getty.png','hex.png','sink.png','snail1.png','snail2.gif','Snail3.png','spiral1.png','spiral2.png','spiral3.png','spiral4.png','spiral5.png','spiral7.png','thingy.png','toilet.png'];
+  var images = ['313ePOL.png','apple-logo-rainbow.png','bern.png','blank.png','blank2.png','blank3.png','geo.png','guy.png','guy2.png','horse.png','mlp.png','pink_leaf.gif','poke.png','purp.jpg','simba_khii.png','snoop.jpg','spiral.png','sword.png','tri.png','wire.GIF','bath 1.png','bath 2.png','couple.png','cross.png','fire ring1.png','flower of life.png','galaxy s8.png','Galaxy1.png','gary.png','getty.png','hex.png','sink.png','snail1.png','snail2.gif','Snail3.png','thingy.png','toilet.png'];
 
   var button = document.getElementById('pause')
   button.onclick = function() {
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
 
-    for(var j= 0; j < 5; j++) {
+    for(var j= 0; j < 1; j++) {
       objects.push( createCloud());
     }
   }
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     randox= random_x();
     randoy= random_y();
     randoz= random_z();
-    for(var i =0; i<14; i++) {
+    for(var i =0; i<6; i++) {
       var div = document.createElement('div');
       div.className = 'cloudBase cube'+i;
       div.data = {
@@ -323,15 +323,15 @@ length = 0;
 function update(){
   worldXAngle += -rms_copy*2;
   worldYAngle += 1+rms_copy*5;
-  // d = rms_copy*10;
-  // for( var j = 0; j < layers.length; j++) {
-  //   var layer = layers[ j ];
-  //   layer.data.a += layer.data.s;
-  //   var t = 'translateX( ' + layer.data.x + 'px ) translateY( ' + layer.data.y + 'px ) translateZ( ' + layer.data.z + 'px ) rotateX('+layer.data.rx+'deg) rotateY('+layer.data.ry+'deg) rotateZ( ' + layer.data.a + 'deg ) scale( ' + layer.data.s + ')';
-  //   layer.style.webkitTransform = t;
-  //   layer.style.MozTransform = t;
-  //   layer.style.oTransform = t;
-  // }
+  d = rms_copy*10;
+  for( var j = 0; j < layers.length; j++) {
+    var layer = layers[ j ];
+    layer.data.a += layer.data.s;
+    var t = 'translateX( ' + layer.data.x + 'px ) translateY( ' + layer.data.y + 'px ) translateZ( ' + layer.data.z + 'px ) rotateX('+layer.data.rx+'deg) rotateY('+layer.data.ry+'deg) rotateZ( ' + layer.data.a + 'deg ) scale( ' + layer.data.s + ')';
+    layer.style.webkitTransform = t;
+    layer.style.MozTransform = t;
+    layer.style.oTransform = t;
+  }
   length += .5;
 
   for(var i = 0; i<cube_array.length; i++) {
@@ -439,29 +439,40 @@ function update(){
 }
 
 update();
-displaySound = function(url = 'audio/house no. 6.mp3'){
-  if(audio_copy) {
-    audio_copy.pause();
-  }
+
+        // video.srcObject = stream;
+        // video.onloadedmetadata = function(e) {
+        //     video.play();
+        //     video.muted = true;
+        // };
+
+        // Create a MediaStreamAudioSourceNode
+        // Feed the HTMLMediaElement into it
+navigator.mediaDevices.getUserMedia ({audio: true}).then(function(stream){
+  // if(audio_copy) {
+  //   audio_copy.pause();
+  // }
+  // var audioCtx = new AudioContext();
+  // var source = audioCtx.createMediaStreamSource(stream);
   // var url = 'German Clap.mp3'
     var ctx = new AudioContext()
-    , audio = new Audio(url)
+    // , audio = new Audio(url)
     // 2048 sample buffer, 1 channel in, 1 channel out
     , processor = ctx.createScriptProcessor(2048, 1, 1)
     , analyser = ctx.createAnalyser()
     , source
     var bufferLength = analyser.frequencyBinCount;
     frequency_data = new Float32Array(bufferLength);
-    audio_copy = audio;
+    // audio_copy = audio;
 
-  audio.addEventListener('canplaythrough', function(){
-    var source = ctx.createMediaElementSource(audio)
+  // audio.addEventListener('canplaythrough', function(){
+    var source = ctx.createMediaStreamSource(stream)
     source.connect(processor)
     source.connect(analyser)
-    source.connect(ctx.destination)
+    // source.connect(ctx.destination)
     processor.connect(ctx.destination)
-    audio.play()
-  }, false);
+    // audio.play()
+  // }, false);
 
 
   // loop through PCM data and calculate average
@@ -490,9 +501,15 @@ displaySound = function(url = 'audio/house no. 6.mp3'){
     mid_meter.style.width = 100+mid+'%';
     high_meter.style.width = 100+high+'%';
 
+    // console.log(low);
+
     low_copy = low+100;
     mid_copy = mid+100;
     high_copy = high+100;
+
+    var bgr = Math.floor(Math.abs(low_copy*5));
+    var bgg = Math.floor(Math.abs(mid_copy*5));
+    var bgb = Math.floor(Math.abs(high_copy*5));
 
 
 
@@ -506,21 +523,35 @@ displaySound = function(url = 'audio/house no. 6.mp3'){
       layers[i].data.s = layers[i].animation_data.s + rms*4;
     }
     rms_copy = rms;
-    // if (rms > .5) {
-    //   for(var i = 0; i<layers.length; i++) {
-    //     layers[i].style.backgroundImage = "url('images/"+images[random_img()]+"')";
-    //   }
-    // }
-    // if (rms < .2) {
-    //   for(var i = 0; i<layers.length; i++) {
-    //     layers[i].style.backgroundImage = "url('images/horse.png')";
-    //   }
-    // }
+
+    if (rms > .4) {
+      for(var i = 0; i<layers.length; i++) {
+        layers[i].style.backgroundImage = "url('images/"+images[random_img()]+"')";
+        layers[i].style.backgroundColor ='rgba(0,0,0,0)';
+      }
+      // for(var i = 0; i<layers.length; i++) {
+      //   layers[i].style.backgroundColor ='rgba('+bgb+','+bgr+','+bgg+',.5)';
+      // }
+    }
+    if (rms < .1) {
+      // for(var i = 0; i<layers.length; i++) {
+      //   layers[i].style.backgroundImage = "url('images/horse.png')";
+      for(var i = 0; i<layers.length; i++) {
+        layers[i].style.backgroundImage = "";
+        layers[i].style.backgroundColor ='rgba('+bgb+','+bgr+','+bgg+',.5)';
+      }
+    }
 
   }
 
-}
-displaySound();
+
+// displaySound();
+
+
+
+}).catch(function(err) {
+   console.log('The following gUM error occured: ' + err);
+});
 
 
 
